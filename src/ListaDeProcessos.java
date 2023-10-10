@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaDeProcessos {
@@ -5,7 +6,7 @@ public class ListaDeProcessos {
     public List<ElementoDaLista> lista;
 
     ListaDeProcessos(){
-        
+        this.lista = new ArrayList<>();
     }
 
     public boolean estaVazia(){
