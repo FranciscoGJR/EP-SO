@@ -9,6 +9,7 @@ public class ListaDeProcessos {
     }
 
     public boolean estaVazia(){
+        if(lista != null && lista.isEmpty()) return true;
         return false;
     }
 
