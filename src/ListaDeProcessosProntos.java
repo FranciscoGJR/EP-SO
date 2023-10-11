@@ -16,6 +16,8 @@ public class ListaDeProcessosProntos extends ListaDeProcessos {
     }
     
     public BlocoDeControleDeProcessos getPrimeiroProcesso() {
-        return null;
+        
+        ElementoDaLista elemento = this.lista.get(0);
+        return elemento.getBpc();
     }
 }
