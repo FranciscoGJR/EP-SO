@@ -4,7 +4,7 @@ import java.util.*;
 public class BlocoDeControleDeProcessos{
 
     private int PC; //Program Counter
-    private int estadoDoProcesso;
+    private EstadoDoProcesso estadoDoProcesso;
     private int x;
     private int y;
     private List<String> programa;
@@ -17,7 +17,7 @@ public class BlocoDeControleDeProcessos{
         this.programa = Files.readAllLines(arquivo);
         this.nomeDoPrograma = programa.getFirst();
         //Escrever no log ("Carregando TESTE-" + this.nomeDoPrograma");
-        this.estadoDoProcesso = 2;
+        this.estadoDoProcesso = PRONTO;
     }
 
     public List<String> getPrograma() {
@@ -36,16 +36,13 @@ public class BlocoDeControleDeProcessos{
         this.PC++;
     }
 
-    public int getEstadoDoProcesso() {
+    public EstadoDoProcesso getEstadoDoProcesso() {
         return estadoDoProcesso;
     }
 
-    public void setEstadoDoProcesso(int estadoDoProcesso) {
-        if(estadoDoProcesso >= 1 && estadoDoProcesso <= 3 ){
-            this.estadoDoProcesso = estadoDoProcesso;
-        }
-        else System.out.println("Estado inválido!");
-    }
+    public void setEstadoDoProcesso(EstadoDoProcesso estadoDoProcesso) {
+        this.estadoDoProcesso = estadoDoProcesso;
+}
 
     public int getX() {
         return x;
