@@ -1,26 +1,23 @@
+import java.util.*;
+
 public class TabelaDeProcessos{
 
-    private BlocoDeControleDeProcessos[] tabela;
-    private int numProcessos;
+    private List<BlocoDeControleDeProcessos> tabela;
 
-    TabelaDeProcessos(int numProcessos){
-        this.numProcessos = numProcessos;
-        this.tabela = new BlocoDeControleDeProcessos[numProcessos];
+    TabelaDeProcessos(){
+        tabela = new ArrayList<>();
     }
 
-    public int getNumProcessos() {
-        return numProcessos;
+    public void eliminarDaTabela(BlocoDeControleDeProcessos BCP){
+        
     }
 
-    public void setNumProcessos(int numProcessos) {
-        this.numProcessos = numProcessos;
+    public void adicionarNaTabela(BlocoDeControleDeProcessos BCP){
+        
     }
 
-    public BlocoDeControleDeProcessos[] getTabela() {
+    public List<BlocoDeControleDeProcessos> getTabela() {
         return tabela;
     }
 
-    public void setTabela(BlocoDeControleDeProcessos[] tabela) {
-        this.tabela = tabela;
-    }
 }

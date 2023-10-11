@@ -1,37 +1,39 @@
+import java.nio.file.*;
+import java.util.*;
+
 public class BlocoDeControleDeProcessos{
 
     private int PC; //Program Counter
     private int estadoDoProcesso;
     private int x;
     private int y;
-    private String[] programa;
+    private List<String> programa;
     private String nomeDoPrograma;
-    private int tamPrograma;
 
-    BlocoDeControleDeProcessos(int tamPrograma){ //Adicionar arquivo txt como parâmetro
-        this.tamPrograma = tamPrograma;
+    BlocoDeControleDeProcessos(PATH arquivo){ //Adicionar path mais genérico
         this.PC = 1;
         this.x = 0;
         this.y = 0;
-        this.programa = new String[tamPrograma];
-        //Popular programa com o arquivo txt
-        this.nomeDoPrograma = programa[0];
+        this.programa = Files.readAllLines(arquivo);
+        this.nomeDoPrograma = programa.getFirst();
+        //Escrever no log ("Carregando TESTE-" + this.nomeDoPrograma");
+        this.estadoDoProcesso = 2;
     }
 
-    public int getTamPrograma() {
-        return tamPrograma;
+    public List<String> getPrograma() {
+        return programa;
     }
-
-    public void setTamPrograma(int tamPrograma) {
-        this.tamPrograma = tamPrograma;
+    
+    public String getNomeDoPrograma() {
+        return nomeDoPrograma;
     }
 
     public int getPC() {
             return PC;
     }
 
-    public void setPC(int PC) {
-        this.PC = PC;
+    public void incrementarPC() {
+        this.PC++;
     }
 
     public int getEstadoDoProcesso() {
@@ -61,19 +63,4 @@ public class BlocoDeControleDeProcessos{
         this.y = y;
     }
 
-    public String[] getPrograma() {
-        return programa;
-    }
-
-    public void setPrograma(String[] programa) {
-        this.programa = programa;
-    }
-    
-    public String getNomeDoPrograma() {
-        return nomeDoPrograma;
-    }
-
-    public void setNomeDoPrograma(String nomeDoPrograma) {
-        this.nomeDoPrograma = nomeDoPrograma;
-    }
 }
