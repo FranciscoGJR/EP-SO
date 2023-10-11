@@ -10,7 +10,7 @@ public class BlocoDeControleDeProcessos{
     private List<String> programa;
     private String nomeDoPrograma;
 
-    BlocoDeControleDeProcessos(PATH arquivo){ //Adicionar path mais genérico
+    BlocoDeControleDeProcessos(Path arquivo){ //Adicionar path mais genérico
         this.PC = 1;
         this.x = 0;
         this.y = 0;
