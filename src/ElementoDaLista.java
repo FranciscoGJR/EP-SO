@@ -3,8 +3,8 @@ public class ElementoDaLista {
     public BlocoDeControleDeProcessos bpc;
     public Integer tempoDeEspera;
 
-    ElementoDaLista(){
-
+    ElementoDaLista(BlocoDeControleDeProcessos bcp){
+        this.bpc = bcp;
     }
 
     public BlocoDeControleDeProcessos getBpc() {
