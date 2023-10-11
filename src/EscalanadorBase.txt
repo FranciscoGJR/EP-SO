@@ -1,0 +1,40 @@
+escalonador!:
+  seleciona primeiro da fila
+  
+  if primeiro da fila nao exite
+    percorre bloqueados
+    contador bloqueados ++ 
+    se contador bloqueado >2 vai pro pronto
+    encerra escalonador
+    
+- loop percorre primeiro da fila(
+  while(contador < quantum, ou instrucao!= SAIDA)
+           
+  exec linha atual
+  
+  
+- if =e/s
+  coloca como bloqueado
+  atribui tempo de espera (2 processos)
+  interrompe o processo
+
+coloca processo no final da fila
+)
+
+  if instrucao = SAIDA
+    manda pro log
+    encerra processo remove das listas
+    contadorTrocas ++ 
+    
+
+  percorre bloqueados
+    contador bloqueados ++ 
+    se contador bloqueado >= 2 vai pro pronto
+
+valor total=+contador
+iterações++
+reseta contador
+
+''log media de trocas = numero de vezes que foi interrompido e última vez que rodou
+''log media de instrucoes = valor total de instrucoes / iteracoes por teste
+''Quantidade de instrucoes E/S = contador de toda vez que um teste vai pra lista de bloqueados
