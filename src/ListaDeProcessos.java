@@ -14,8 +14,8 @@ public class ListaDeProcessos {
         return false;
     }
 
-    public boolean adicionarNoFinal(){
-        return false;
+    public boolean adicionarNoFinal(ElementoDaLista elemento){
+        return lista.add(elemento);
     }
 
     public List<ElementoDaLista> getLista() {
