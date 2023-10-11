@@ -1,5 +1,6 @@
 import java.nio.file.*;
 import java.util.*;
+import java.io.IOException;
 
 public class BlocoDeControleDeProcessos{
 
@@ -10,12 +11,26 @@ public class BlocoDeControleDeProcessos{
     private List<String> programa;
     private String nomeDoPrograma;
 
-    BlocoDeControleDeProcessos(PATH arquivo){ //Adicionar path mais genérico
+    BlocoDeControleDeProcessos(String nomeArquivo){
         this.PC = 1;
         this.x = 0;
         this.y = 0;
-        this.programa = Files.readAllLines(arquivo);
-        this.nomeDoPrograma = programa.getFirst();
+
+        String diretorioAtual = System.getProperty("user.dir");
+        Path arquivo = Paths.get(diretorioAtual, nomeArquivo);
+        try{
+            this.programa = Files.readAllLines(arquivo);
+            this.nomeDoPrograma = programa.getFirst();
+
+            for(String linha: programa){    //Imprimindo linhas para teste
+                System.out.println(linha);
+            }
+            
+        } catch (IOException e){
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao ler o arquivo.");
+        }
+
         //Escrever no log ("Carregando TESTE-" + this.nomeDoPrograma");
         this.estadoDoProcesso = PRONTO;
     }
@@ -42,7 +57,7 @@ public class BlocoDeControleDeProcessos{
 
     public void setEstadoDoProcesso(EstadoDoProcesso estadoDoProcesso) {
         this.estadoDoProcesso = estadoDoProcesso;
-}
+    }
 
     public int getX() {
         return x;
