@@ -9,8 +9,9 @@ public class ListaDeProcessosBloqueados extends ListaDeProcessos {
     }
 
     @Override
-    public boolean adicionarNoFinal(){
-        super.adicionarNoFinal();
+    public boolean adicionarNoFinal(ElementoDaLista elemento){
+        elemento.setTempoDeEspera(2);
+        super.adicionarNoFinal(elemento);
         return true;
     }
 
