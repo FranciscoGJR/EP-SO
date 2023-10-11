@@ -9,11 +9,11 @@ public class TabelaDeProcessos{
     }
 
     public void eliminarDaTabela(BlocoDeControleDeProcessos BCP){
-        
+        tabela.remove(BCP);
     }
 
     public void adicionarNaTabela(BlocoDeControleDeProcessos BCP){
-        
+        tabela.addLast(BCP);
     }
 
     public List<BlocoDeControleDeProcessos> getTabela() {
