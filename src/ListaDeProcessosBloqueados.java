@@ -8,7 +8,6 @@ public class ListaDeProcessosBloqueados extends ListaDeProcessos {
 
     public void decrementarTempoDeEspera(){
         List<ElementoDaLista> listaTemp = getLista();
-
         for (ElementoDaLista elemento : listaTemp) {
             elemento.tempoDeEspera--;
         }
