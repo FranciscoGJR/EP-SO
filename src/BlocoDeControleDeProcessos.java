@@ -20,7 +20,7 @@ public class BlocoDeControleDeProcessos{
         Path arquivo = Paths.get(diretorioAtual, nomeArquivo);
         try{
             this.programa = Files.readAllLines(arquivo);
-            this.nomeDoPrograma = programa.getFirst();
+            this.nomeDoPrograma = programa.get(0);
 
             for(String linha: programa){    //Imprimindo linhas para teste
                 System.out.println(linha);
@@ -32,7 +32,7 @@ public class BlocoDeControleDeProcessos{
         }
 
         //Escrever no log ("Carregando TESTE-" + this.nomeDoPrograma");
-        this.estadoDoProcesso = PRONTO;
+        this.estadoDoProcesso = EstadoDoProcesso.PRONTO;
     }
 
     public List<String> getPrograma() {

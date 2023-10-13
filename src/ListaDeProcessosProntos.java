@@ -6,6 +6,7 @@ public class ListaDeProcessosProntos extends ListaDeProcessos {
 
     }
 
+
     public void carregarProcessos(List<BlocoDeControleDeProcessos> tabela){
         for (BlocoDeControleDeProcessos bcp : tabela) {
             ElementoDaLista novoElemento = new ElementoDaLista(bcp);
@@ -14,10 +15,5 @@ public class ListaDeProcessosProntos extends ListaDeProcessos {
         }
         
     }
-    
-    public BlocoDeControleDeProcessos getPrimeiroProcesso() {
-        
-        ElementoDaLista elemento = this.lista.get(0);
-        return elemento.getBpc();
-    }
+
 }

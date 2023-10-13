@@ -1,11 +1,17 @@
+import java.util.List;
+
 public class ListaDeProcessosBloqueados extends ListaDeProcessos {
 
     ListaDeProcessosBloqueados(){
 
     }
 
-    public boolean decrementarTempoDeEspera(){
-        return false;
+    public void decrementarTempoDeEspera(){
+        List<ElementoDaLista> listaTemp = getLista();
+
+        for (ElementoDaLista elemento : listaTemp) {
+            elemento.tempoDeEspera--;
+        }
     }
 
     @Override

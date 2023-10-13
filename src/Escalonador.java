@@ -31,6 +31,15 @@ public class Escalonador{
     public void Escalonamento(){
         while(!tabelaDeProcessos.getTabela().isEmpty()){
 
+        if (listaDeProcessoProntos.estaVazia()){
+            listaDeProcessosBloqueados.decrementarTempoDeEspera();
+            if(listaDeProcessosBloqueados.getLista().get(0).getTempoDeEspera() == 0){
+                break; //encerra escalonador
+	        }
+        }
+    }
+
+BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
 
         }
 
@@ -108,16 +117,18 @@ ListaDeProcessosBloqueados ProcessosBloqueados = new ListaDeProcessosBloqueados(
     }
 
 while(tabela != null){
-BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
-
-
+    
+    
 //precisa ler o quantum.txt??
 if (ProcessosProntos.estaVazia()){
 	ProcessosBloqueados.decrementarTempoDeEspera();
 	if(contador == 0){
-		break; //encerra escalonador
+        break; //encerra escalonador
 	}
 }
+
+BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
+
 while(contador < quantum && instrucao != "SAIDA"){
 	//exec linha atual
 	  
