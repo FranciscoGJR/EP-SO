@@ -85,9 +85,9 @@ public class Escalonador{
         String caminhoDoarquivo = "";
         for(int i = 1; i <= 10; i++){
             if(i == 10){ 
-                caminhoDoarquivo = "./processos/10.txt";
+                caminhoDoarquivo = "./10.txt";
             } else{
-                caminhoDoarquivo = "./processos/0" + i + ".txt";
+                caminhoDoarquivo = "./0" + i + ".txt";
             }
 
         BlocoDeControleDeProcessos bcp = new BlocoDeControleDeProcessos(caminhoDoarquivo);
