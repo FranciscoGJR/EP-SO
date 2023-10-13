@@ -3,7 +3,11 @@ public class Escalonador{
         
     }
 Escalonador(){
-
+/*Valores logs*/
+int valor_total = 0;
+int iteracoes = 0;
+int instrucoesES = 0;
+//	
 int quantum = 3;
 
 String diretorioAtual = System.getProperty("user.dir");
@@ -39,25 +43,53 @@ ListaDeProcessosBloqueados ProcessosBloqueados = new ListaDeProcessosBloqueados(
     }
 
 while(tabela != null){
-/* lista.getPrimeiroProcesso();*/
+BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
+
 
 //precisa ler o quantum.txt??
+if (ProcessosProntos.estaVazia()){
+	ProcessosBloqueados.decrementarTempoDeEspera();
+	if(contador == 0){
+		break; //encerra escalonador
+	}
+}
 while(contador < quantum && instrucao != "SAIDA"){
-    if (ProcessosProntos.estaVazia()){
-        ProcessosBloqueados.decrementarTempoDeEspera();
-    if(contador == 0){
-        break; //encerra escalonador
-    }
-        
-    
+	//exec linha atual
+	  
+	  
+	if (comando == E/S) {
+		//tira da lista prontos;
+		ProcessosBloqueados.adicionarNoFinal(blocotemp);
+		instrucoesES ++;
+		break;//sai desse laço ainda fica dentro do outro, exe
+		}
+	
+
+		}//laco1
+//coloca processo no final da fila prontos
+if (comando == "SAIDA") {
+//manda pro log
+//remove das lista prontos
+tabela.eliminarDaTabela(blocotemp);
+//contadorTrocas ++ 
 }
 
-
-
-
-
-
-
+//contador bloqueados
+ProcessosBloqueados.decrementarTempoDeEspera();
+if(contador bloqueado == 0) {
+//remove lista bloqueado
+ProcessosProntos.adicionarNoFinal(blocotemp);
 }
-}
-}
+
+valor_total=+contador;
+iterações++;
+//reseta contador
+
+
+	}//laco2
+/*LOGS
+''log media de trocas = numero de vezes que foi interrompido e última vez que rodou
+''log media de instrucoes = valor total de instrucoes / iteracoes por teste
+''Quantidade de instrucoes E/S = contador de toda vez que um teste vai pra lista de bloqueados
+*/
+}//escalonador
