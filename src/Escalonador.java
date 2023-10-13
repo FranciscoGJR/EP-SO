@@ -1,16 +1,40 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 public class Escalonador{
     public static void main(String[] args){
         
     }
-Escalonador(){
-/*Valores logs*/
-int valor_total = 0;
-int iteracoes = 0;
-int instrucoesES = 0;
-//	
-int quantum = 3;
 
-String diretorioAtual = System.getProperty("user.dir");
+    private Integer quantum;
+    private TabelaDeProcessos tabelaDeProcessos;
+    private ListaDeProcessosProntos listaDeProcessoProntos;
+    private ListaDeProcessosBloqueados listaDeProcessosBloqueados;
+
+    Escalonador(){
+        quantum = this.definirQuantum();
+        listaDeProcessoProntos = new ListaDeProcessosProntos();
+        listaDeProcessosBloqueados = new ListaDeProcessosBloqueados();
+        tabelaDeProcessos = criarTabelaDeProcessos();
+    }
+
+    public TabelaDeProcessos criarTabelaDeProcessos(){
+        TabelaDeProcessos tabela = new TabelaDeProcessos();
+        this.preencherTabela(tabela);
+        return tabela;
+    }
+
+
+    public void preencherTabela(TabelaDeProcessos tabela){
+
+    }
+
+
+    public Integer definirQuantum(){
+        String diretorioAtual = System.getProperty("user.dir");
         Path arquivo1 = Paths.get(diretorioAtual, "quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
@@ -21,6 +45,19 @@ String diretorioAtual = System.getProperty("user.dir");
             e.printStackTrace();
             throw new RuntimeException("Erro ao ler o arquivo quantum.txt");
         }
+        
+        return 0;
+    }
+
+    public void rascunho(){
+/*Valores logs*/
+int valor_total = 0;
+int iteracoes = 0;
+int instrucoesES = 0;
+//	
+int quantum = 3;
+
+
 //le aqrquivo
 
 //cria tabela e listas
@@ -93,3 +130,4 @@ iterações++;
 ''Quantidade de instrucoes E/S = contador de toda vez que um teste vai pra lista de bloqueados
 */
 }//escalonador
+}
