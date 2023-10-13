@@ -23,7 +23,6 @@ public class BlocoDeControleDeProcessos{
             this.nomeDoPrograma = programa.get(0);
 
             for(String linha: programa){    //Imprimindo linhas para teste
-                System.out.println(linha);
             }
             
         } catch (IOException e){

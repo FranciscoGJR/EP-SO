@@ -11,10 +11,10 @@ public class Escalonador{
     Integer logIteracoes = 0;
     Integer logInstrucoesES = 0;
 
-    private Integer quantum;
-    private TabelaDeProcessos tabelaDeProcessos;
-    private ListaDeProcessosProntos listaDeProcessoProntos;
-    private ListaDeProcessosBloqueados listaDeProcessosBloqueados;
+    public Integer quantum;
+    public TabelaDeProcessos tabelaDeProcessos;
+    public ListaDeProcessosProntos listaDeProcessoProntos;
+    public ListaDeProcessosBloqueados listaDeProcessosBloqueados;
 
     Escalonador(){
         quantum = this.definirQuantum();
@@ -102,15 +102,13 @@ public class Escalonador{
         Path arquivo1 = Paths.get("./processos/quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
-            Integer quantum = Integer.parseInt(quantumStr.get(0));
-            System.out.println(quantum);
+            return Integer.parseInt(quantumStr.get(0));
 
          } catch (IOException e){
             e.printStackTrace();
             throw new RuntimeException("Erro ao ler o arquivo quantum.txt");
         }
         
-        return 0;
     }
 
 }
