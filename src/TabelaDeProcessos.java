@@ -20,4 +20,10 @@ public class TabelaDeProcessos{
         return tabela;
     }
 
+    @Override
+    public String toString(){
+        System.out.println(tabela.toString());
+        return "";
+    }
+
 }

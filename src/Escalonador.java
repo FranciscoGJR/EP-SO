@@ -27,6 +27,7 @@ public class Escalonador{
 
     public void Escalonamento(){
         while(!tabelaDeProcessos.getTabela().isEmpty()){
+            System.out.println("== CHEGUEI AQUI ==");
             
             if (listaDeProcessoProntos.estaVazia()){
                 listaDeProcessosBloqueados.decrementarTempoDeEspera();
@@ -36,37 +37,40 @@ public class Escalonador{
                     listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
                 }
                 else
-                    break;
+                    continue;
             }
 
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
-
+            
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && instrucaoAtual != "SAIDA"){
             
-                if (instrucaoAtual == "E/S") {
+                if (instrucaoAtual.equals("E/S") ) {
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
                     listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
 
+                    blocoTemporario.incrementarPC();
                     logInstrucoesES ++;
                     break;
                 }
                 
                 contadorQuantum++;
                 blocoTemporario.incrementarPC();
-                instrucaoAtual = blocoTemporario.getPrograma().get(blocoTemporario.getPC());
+                instrucaoAtual = blocoTemporario.getInstrucaoAtual();
             }
-
-            if (instrucaoAtual == "SAIDA") {
+                
+            if (instrucaoAtual.equals("SAIDA")) {
+                
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 //manda pro log
                 //remove das lista prontos
                 //contadorTrocas ++ 
             }
-
+            
+        //System.out.println(tabelaDeProcessos.toString());
         }
-
+        
     }
 
 
@@ -81,9 +85,9 @@ public class Escalonador{
         String caminhoDoarquivo = "";
         for(int i = 1; i <= 10; i++){
             if(i == 10){ 
-                caminhoDoarquivo = "../processos/10.txt";
+                caminhoDoarquivo = "./processos/10.txt";
             } else{
-                caminhoDoarquivo = "../processos/0" + i + ".txt";
+                caminhoDoarquivo = "./processos/0" + i + ".txt";
             }
 
         BlocoDeControleDeProcessos bcp = new BlocoDeControleDeProcessos(caminhoDoarquivo);
@@ -94,9 +98,8 @@ public class Escalonador{
 
 
     public Integer definirQuantum(){
-        //String diretorioAtual = System.getProperty("user.dir");
 
-        Path arquivo1 = Paths.get("../processos/quantum.txt");
+        Path arquivo1 = Paths.get("./processos/quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
             Integer quantum = Integer.parseInt(quantumStr.get(0));
@@ -111,80 +114,3 @@ public class Escalonador{
     }
 
 }
-
-    /*
-     
-//le aqrquivo
-
-//cria tabela e listas
-TabelaDeProcessos tabela = new TabelaDeProcessos();
-ListaDeProcessosProntos ProcessosProntos = new ListaDeProcessosProntos();  
-ListaDeProcessosBloqueados ProcessosBloqueados = new ListaDeProcessosBloqueados();  
-
-    //percorre arquivos criando bloco de processos e adicionando na lista prontos
-    String nomearq = "";
-    for(int i = 1; i <= 10; i++){
-        if(i == 10){ 
-            nomearq = "./10.txt";
-        } else{
-            nomearq = "./0" + i + ".txt";
-        }
-
-        BlocoDeControleDeProcessos bcp = new BlocoDeControleDeProcessos(nomearq);
-        tabela.adicionarNaTabela(bcp);
-        ProcessosProntos.adicionarNoFinal(bcp);
-    }
-
-while(tabela != null){
-    
-    
-//precisa ler o quantum.txt??
-if (ProcessosProntos.estaVazia()){
-	ProcessosBloqueados.decrementarTempoDeEspera();
-	if(contador == 0){
-        break; //encerra escalonador
-	}
-}
-
-BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
-
-while(contador < quantum && instrucao != "SAIDA"){
-	//exec linha atual
-	  
-	  
-	if (comando == E/S) {
-		//tira da lista prontos;
-		ProcessosBloqueados.adicionarNoFinal(blocotemp);
-		instrucoesES ++;
-		break;//sai desse laço ainda fica dentro do outro, exe
-		}
-	
-
-		}//laco1
-
-//coloca processo no final da fila prontos
-if (comando == "SAIDA") {
-//manda pro log
-//remove das lista prontos
-tabela.eliminarDaTabela(blocotemp);
-//contadorTrocas ++ 
-}
-
-//contador bloqueados
-ProcessosBloqueados.decrementarTempoDeEspera();
-if(contador bloqueado == 0) {
-//remove lista bloqueado
-ProcessosProntos.adicionarNoFinal(blocotemp);
-}
-
-valor_total=+contador;
-iterações++;
-//reseta contador
-
-
-	}//laco2
-/*LOGS
-''log media de trocas = numero de vezes que foi interrompido e última vez que rodou
-''log media de instrucoes = valor total de instrucoes / iteracoes por teste
-''Quantidade de instrucoes E/S = contador de toda vez que um teste vai pra lista de bloqueados
-*/
