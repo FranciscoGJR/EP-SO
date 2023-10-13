@@ -5,6 +5,18 @@ public class Escalonador{
 Escalonador(){
 
 int quantum = 3;
+
+String diretorioAtual = System.getProperty("user.dir");
+        Path arquivo1 = Paths.get(diretorioAtual, "quantum.txt");
+        try{
+            List<String> quantumStr = Files.readAllLines(arquivo1);
+            int quantum = Integer.parseInt(quantumStr.getFirst());
+            System.out.println(quantum);
+
+         } catch (IOException e){
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao ler o arquivo quantum.txt");
+        }
 //le aqrquivo
 
 //cria tabela e listas
