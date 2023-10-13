@@ -27,8 +27,6 @@ public class Escalonador{
 
     public void Escalonamento(){
         while(!tabelaDeProcessos.getTabela().isEmpty()){
-            System.out.println("== CHEGUEI AQUI ==");
-            
             if (listaDeProcessoProntos.estaVazia()){
                 listaDeProcessosBloqueados.decrementarTempoDeEspera();
 
@@ -39,29 +37,34 @@ public class Escalonador{
                 else
                     continue;
             }
-
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
+            System.out.println("PROCESSO: " + blocoTemporario.getNomeDoPrograma());
             
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && instrucaoAtual != "SAIDA"){
-            
+                System.out.println(instrucaoAtual);
+
                 if (instrucaoAtual.equals("E/S") ) {
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
                     listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
 
                     blocoTemporario.incrementarPC();
                     logInstrucoesES ++;
-                    break;
+                    continue;
                 }
                 
                 contadorQuantum++;
                 blocoTemporario.incrementarPC();
                 instrucaoAtual = blocoTemporario.getInstrucaoAtual();
+
             }
-                
+
+            ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
+            listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
+            
             if (instrucaoAtual.equals("SAIDA")) {
-                
+                System.out.println("== CHEGUEI AQUI ==");
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 //manda pro log
                 //remove das lista prontos
