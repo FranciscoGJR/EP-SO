@@ -9,6 +9,11 @@ public class Escalonador{
         
     }
 
+    /*Valores logs*/
+    Integer valor_total = 0;
+    Integer iteracoes = 0;
+    Integer instrucoesES = 0;
+
     private Integer quantum;
     private TabelaDeProcessos tabelaDeProcessos;
     private ListaDeProcessosProntos listaDeProcessoProntos;
@@ -19,7 +24,18 @@ public class Escalonador{
         listaDeProcessoProntos = new ListaDeProcessosProntos();
         listaDeProcessosBloqueados = new ListaDeProcessosBloqueados();
         tabelaDeProcessos = criarTabelaDeProcessos();
+        listaDeProcessoProntos.carregarProcessos(tabelaDeProcessos.getTabela());
     }
+
+
+    public void Escalonamento(){
+        while(!tabelaDeProcessos.getTabela().isEmpty()){
+
+
+        }
+
+    }
+
 
     public TabelaDeProcessos criarTabelaDeProcessos(){
         TabelaDeProcessos tabela = new TabelaDeProcessos();
@@ -29,6 +45,17 @@ public class Escalonador{
 
 
     public void preencherTabela(TabelaDeProcessos tabela){
+        String caminhoDoarquivo = "";
+        for(int i = 1; i <= 10; i++){
+            if(i == 10){ 
+                caminhoDoarquivo = "./10.txt";
+            } else{
+                caminhoDoarquivo = "./0" + i + ".txt";
+            }
+
+        BlocoDeControleDeProcessos bcp = new BlocoDeControleDeProcessos(caminhoDoarquivo);
+        tabela.adicionarNaTabela(bcp);
+        }
 
     }
 
@@ -38,7 +65,7 @@ public class Escalonador{
         Path arquivo1 = Paths.get(diretorioAtual, "quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
-            int quantum = Integer.parseInt(quantumStr.getFirst());
+            Integer quantum = Integer.parseInt(quantumStr.get(0));
             System.out.println(quantum);
 
          } catch (IOException e){
@@ -48,6 +75,7 @@ public class Escalonador{
         
         return 0;
     }
+
 
     public void rascunho(){
 /*Valores logs*/
