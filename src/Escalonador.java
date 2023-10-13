@@ -81,9 +81,9 @@ public class Escalonador{
         String caminhoDoarquivo = "";
         for(int i = 1; i <= 10; i++){
             if(i == 10){ 
-                caminhoDoarquivo = "./10.txt";
+                caminhoDoarquivo = "../processos/10.txt";
             } else{
-                caminhoDoarquivo = "./0" + i + ".txt";
+                caminhoDoarquivo = "../processos/0" + i + ".txt";
             }
 
         BlocoDeControleDeProcessos bcp = new BlocoDeControleDeProcessos(caminhoDoarquivo);
@@ -94,8 +94,9 @@ public class Escalonador{
 
 
     public Integer definirQuantum(){
-        String diretorioAtual = System.getProperty("user.dir");
-        Path arquivo1 = Paths.get(diretorioAtual, "quantum.txt");
+        //String diretorioAtual = System.getProperty("user.dir");
+
+        Path arquivo1 = Paths.get("../processos/quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
             Integer quantum = Integer.parseInt(quantumStr.get(0));
