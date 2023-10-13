@@ -47,6 +47,10 @@ public class BlocoDeControleDeProcessos{
             return PC;
     }
 
+    public String getInstrucaoAtual(){
+        return programa.get(PC);
+    }
+
     public void incrementarPC() {
         this.PC++;
     }
