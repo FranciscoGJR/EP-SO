@@ -99,7 +99,7 @@ public class Escalonador{
 
     public Integer definirQuantum(){
 
-        Path arquivo1 = Paths.get("./processos/quantum.txt");
+        Path arquivo1 = Paths.get("./quantum.txt");
         try{
             List<String> quantumStr = Files.readAllLines(arquivo1);
             return Integer.parseInt(quantumStr.get(0));
