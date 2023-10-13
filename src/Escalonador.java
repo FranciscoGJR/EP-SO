@@ -40,7 +40,7 @@ public class Escalonador{
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
             System.out.println("PROCESSO: " + blocoTemporario.getNomeDoPrograma());
-            
+            String ultimaInstrucaoES = "";
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && instrucaoAtual != "SAIDA"){
                 System.out.println(instrucaoAtual);
@@ -51,7 +51,8 @@ public class Escalonador{
 
                     blocoTemporario.incrementarPC();
                     logInstrucoesES ++;
-                    continue;
+                    ultimaInstrucaoES = instrucaoAtual;
+                    break;
                 }
                 
                 contadorQuantum++;
@@ -59,9 +60,13 @@ public class Escalonador{
                 instrucaoAtual = blocoTemporario.getInstrucaoAtual();
 
             }
-
-            ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
-            listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
+            if (ultimaInstrucaoES.equals("E/S")){
+                System.out.println("Ultima instrucao foi E/S");
+            } else{
+                ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
+                listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
+            }
+            
             
             if (instrucaoAtual.equals("SAIDA")) {
                 System.out.println("== CHEGUEI AQUI ==");
