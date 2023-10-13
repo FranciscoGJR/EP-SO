@@ -13,7 +13,7 @@ public class TabelaDeProcessos{
     }
 
     public void adicionarNaTabela(BlocoDeControleDeProcessos BCP){
-        tabela.addLast(BCP);
+        tabela.add(BCP);
     }
 
     public List<BlocoDeControleDeProcessos> getTabela() {

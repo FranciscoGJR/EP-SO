@@ -5,14 +5,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Escalonador{
-    public static void main(String[] args){
-        
-    }
 
     /*Valores logs*/
-    Integer valor_total = 0;
-    Integer iteracoes = 0;
-    Integer instrucoesES = 0;
+    Integer logValor_total = 0;
+    Integer logIteracoes = 0;
+    Integer logInstrucoesES = 0;
 
     private Integer quantum;
     private TabelaDeProcessos tabelaDeProcessos;
@@ -30,16 +27,43 @@ public class Escalonador{
 
     public void Escalonamento(){
         while(!tabelaDeProcessos.getTabela().isEmpty()){
+            
+            if (listaDeProcessoProntos.estaVazia()){
+                listaDeProcessosBloqueados.decrementarTempoDeEspera();
 
-        if (listaDeProcessoProntos.estaVazia()){
-            listaDeProcessosBloqueados.decrementarTempoDeEspera();
-            if(listaDeProcessosBloqueados.getLista().get(0).getTempoDeEspera() == 0){
-                break; //encerra escalonador
-	        }
-        }
-    }
+                if(listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() == 0){
+                    ElementoDaLista novoProcessoPronto = listaDeProcessosBloqueados.removerPrimeiroElemento();
+                    listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
+                }
+                else
+                    break;
+            }
 
-BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
+            BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
+            String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
+
+            int contadorQuantum = 0;
+            while(contadorQuantum < quantum && instrucaoAtual != "SAIDA"){
+            
+                if (instrucaoAtual == "E/S") {
+                    ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
+                    listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
+
+                    logInstrucoesES ++;
+                    break;
+                }
+                
+                contadorQuantum++;
+                blocoTemporario.incrementarPC();
+                instrucaoAtual = blocoTemporario.getPrograma().get(blocoTemporario.getPC());
+            }
+
+            if (instrucaoAtual == "SAIDA") {
+                tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
+                //manda pro log
+                //remove das lista prontos
+                //contadorTrocas ++ 
+            }
 
         }
 
@@ -85,16 +109,10 @@ BlocoDeControleDeProcessos blocotemp = lista.getPrimeiroProcesso();
         return 0;
     }
 
+}
 
-    public void rascunho(){
-/*Valores logs*/
-int valor_total = 0;
-int iteracoes = 0;
-int instrucoesES = 0;
-//	
-int quantum = 3;
-
-
+    /*
+     
 //le aqrquivo
 
 //cria tabela e listas
@@ -142,6 +160,7 @@ while(contador < quantum && instrucao != "SAIDA"){
 	
 
 		}//laco1
+
 //coloca processo no final da fila prontos
 if (comando == "SAIDA") {
 //manda pro log
@@ -168,5 +187,3 @@ iterações++;
 ''log media de instrucoes = valor total de instrucoes / iteracoes por teste
 ''Quantidade de instrucoes E/S = contador de toda vez que um teste vai pra lista de bloqueados
 */
-}//escalonador
-}
