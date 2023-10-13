@@ -28,13 +28,14 @@ public class Escalonador{
     public void Escalonamento(){
         while(!tabelaDeProcessos.getTabela().isEmpty()){
             if (listaDeProcessoProntos.estaVazia()){
+                //System.out.println("Chegou aqui<<");
                 listaDeProcessosBloqueados.decrementarTempoDeEspera();
-
                 if(listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() == 0){
                     ElementoDaLista novoProcessoPronto = listaDeProcessosBloqueados.removerPrimeiroElemento();
                     listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
                 }
                 else
+                    //System.out.println("Chegou aqui<<");
                     continue;
             }
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
@@ -44,7 +45,6 @@ public class Escalonador{
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && instrucaoAtual != "SAIDA"){
                 System.out.println(instrucaoAtual);
-
                 if (instrucaoAtual.equals("E/S") ) {
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
                     listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
@@ -60,21 +60,23 @@ public class Escalonador{
                 instrucaoAtual = blocoTemporario.getInstrucaoAtual();
 
             }
-            if (ultimaInstrucaoES.equals("E/S")){
-                System.out.println("Ultima instrucao foi E/S");
-            } else{
-                ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
-                listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
-            }
-            
-            
             if (instrucaoAtual.equals("SAIDA")) {
                 System.out.println("== CHEGUEI AQUI ==");
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
+                listaDeProcessoProntos.removerPrimeiroElemento();
                 //manda pro log
                 //remove das lista prontos
                 //contadorTrocas ++ 
             }
+
+            if (ultimaInstrucaoES.equals("E/S")){
+                System.out.println("Ultima instrucao foi E/S");
+            } else{
+                ElementoDaLista elementoTemporario = listaDeProcessoProntos.getPrimerioElementoDaLista();
+                listaDeProcessoProntos.removerPrimeiroElemento();
+                listaDeProcessoProntos.adicionarNoFinal(elementoTemporario);
+            }
+            
             
         //System.out.println(tabelaDeProcessos.toString());
         }
