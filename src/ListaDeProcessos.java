@@ -44,4 +44,8 @@ public class ListaDeProcessos {
         return elemento.getBpc();
     }
 
+    public ElementoDaLista getPrimerioElementoDaLista(){
+        return this.getLista().get(0);
+    }
+
 }
