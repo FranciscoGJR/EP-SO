@@ -48,4 +48,8 @@ public class ListaDeProcessos {
         return this.getLista().get(0);
     }
 
+    public String toString(){
+        return lista.toString();
+    }
+
 }

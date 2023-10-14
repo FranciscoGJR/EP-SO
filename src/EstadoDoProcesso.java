@@ -1,5 +1,5 @@
 public enum EstadoDoProcesso {
     PRONTO,
-    EXECULTADNO,
+    EXECULTANDO,
     BLOQUEADO
 }

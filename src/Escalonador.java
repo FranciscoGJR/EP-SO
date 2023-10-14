@@ -27,29 +27,30 @@ public class Escalonador{
 
     public void Escalonamento(){
     	  	
-    	
         while(!tabelaDeProcessos.getTabela().isEmpty()){
         
-        if(!listaDeProcessosBloqueados.getLista().isEmpty()) {
-        	if(listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() == 0){
-        		ElementoDaLista novoProcessoPronto = listaDeProcessosBloqueados.removerPrimeiroElemento();
-        		listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
-        	}
-        }
-        
-        listaDeProcessosBloqueados.decrementarTempoDeEspera();
-        
+            if(!listaDeProcessosBloqueados.getLista().isEmpty()) {
+                if(listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() == 0){
+                    ElementoDaLista novoProcessoPronto = listaDeProcessosBloqueados.removerPrimeiroElemento();
+                    listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
+                }
+            }
+            
+            listaDeProcessosBloqueados.decrementarTempoDeEspera();
+            
             if (listaDeProcessoProntos.estaVazia()){
-                //System.out.println("Chegou aqui<<");
                 listaDeProcessosBloqueados.decrementarTempoDeEspera();
             }
+
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
-            System.out.println("PROCESSO: " + blocoTemporario.getNomeDoPrograma());
+            System.out.println("\n# " + blocoTemporario.getNomeDoPrograma());
             String ultimaInstrucaoES = "";
+
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && !instrucaoAtual.equals("SAIDA")){
                 System.out.println(instrucaoAtual);
+
                 if (instrucaoAtual.equals("E/S") ) {
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
                     listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
@@ -66,8 +67,9 @@ public class Escalonador{
                 instrucaoAtual = blocoTemporario.getInstrucaoAtual();
 
             }
+
             if (instrucaoAtual.equals("SAIDA")) {
-                System.out.println("== SAIDA! ==");
+                System.out.println("SAIDA");
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 listaDeProcessoProntos.removerPrimeiroElemento();
                 //manda pro log
@@ -75,20 +77,20 @@ public class Escalonador{
                 //contadorTrocas ++ 
             }
 
-            if (ultimaInstrucaoES.equals("E/S")){
-                System.out.println("Ultima instrucao foi E/S");
-            } else{
+            if (!ultimaInstrucaoES.equals("E/S") && !instrucaoAtual.equals("SAIDA")){
                 ElementoDaLista elementoTemporario = listaDeProcessoProntos.getPrimerioElementoDaLista();
                 listaDeProcessoProntos.removerPrimeiroElemento();
                 listaDeProcessoProntos.adicionarNoFinal(elementoTemporario);
-            }
-            
-            
-        //System.out.println(tabelaDeProcessos.toString());
-        }
-        System.out.println("FIm");
+            } 
 
-    }//escalonamento
+        }
+
+        System.out.print("\nTabela de Processos: " + tabelaDeProcessos.toString() + "\n");
+        System.out.print("Lista de Processos Prontos: " + listaDeProcessoProntos.toString() + "\n");
+        System.out.print("Lista de Processos Bloqueados: " + listaDeProcessosBloqueados.toString() + "\n");
+        System.out.println("FIM");
+
+    }
 
 
     public TabelaDeProcessos criarTabelaDeProcessos(){
