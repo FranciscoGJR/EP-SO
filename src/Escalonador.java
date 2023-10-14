@@ -30,6 +30,10 @@ public class Escalonador{
         while(!tabelaDeProcessos.getTabela().isEmpty()){
         
             if(!listaDeProcessosBloqueados.getLista().isEmpty()) {
+                while (listaDeProcessoProntos.estaVazia() && listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() !=0){
+                listaDeProcessosBloqueados.decrementarTempoDeEspera();
+                }
+                
                 if(listaDeProcessosBloqueados.getPrimerioElementoDaLista().getTempoDeEspera() == 0){
                     ElementoDaLista novoProcessoPronto = listaDeProcessosBloqueados.removerPrimeiroElemento();
                     listaDeProcessoProntos.adicionarNoFinal(novoProcessoPronto);
@@ -38,9 +42,6 @@ public class Escalonador{
             
             listaDeProcessosBloqueados.decrementarTempoDeEspera();
             
-            if (listaDeProcessoProntos.estaVazia()){
-                listaDeProcessosBloqueados.decrementarTempoDeEspera();
-            }
 
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
