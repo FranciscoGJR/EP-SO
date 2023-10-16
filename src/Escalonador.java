@@ -25,7 +25,7 @@ public class Escalonador{
     }
 
 
-    public void Escalonamento(){
+    public void escalonamento(){
     	  	
         while(!tabelaDeProcessos.getTabela().isEmpty()){
         
@@ -44,8 +44,12 @@ public class Escalonador{
             
 
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
-            String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
             System.out.println("\n# " + blocoTemporario.getNomeDoPrograma());
+
+            String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
+            if(instrucaoAtual.contains("X") || instrucaoAtual.contains("Y"))
+                this.atualizarVariaveis(instrucaoAtual, blocoTemporario);
+            
             String ultimaInstrucaoES = "";
 
             int contadorQuantum = 0;
@@ -73,6 +77,8 @@ public class Escalonador{
                 System.out.println("SAIDA");
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 listaDeProcessoProntos.removerPrimeiroElemento();
+
+                
                 //manda pro log
                 //remove das lista prontos
                 //contadorTrocas ++ 
@@ -90,6 +96,21 @@ public class Escalonador{
         System.out.print("Lista de Processos Prontos: " + listaDeProcessoProntos.toString() + "\n");
         System.out.print("Lista de Processos Bloqueados: " + listaDeProcessosBloqueados.toString() + "\n");
         System.out.println("FIM");
+
+    }
+
+
+    public void atualizarVariaveis(String instrução, BlocoDeControleDeProcessos bcp){
+        String terceiraChar = String.valueOf(instrução.charAt(2));
+        Integer inteiro = Integer.parseInt(terceiraChar);
+
+        if(instrução.contains("X")){
+          bcp.setX(inteiro);
+        }
+
+        if(instrução.contains("Y")){
+            bcp.setY(inteiro);
+        }
 
     }
 
