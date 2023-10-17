@@ -32,6 +32,16 @@ public class Log {
 
     }
 
+    public void carregando(String nomePrograma){
+        try{
+            List<String> linhas = Files.readAllLines(arquivo);
+            linhas.add("Carregando " + nomePrograma);           
+            Files.write(arquivo, linhas);
+        }   catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void executando(String nomePrograma){
         
         try{
@@ -94,7 +104,9 @@ public class Log {
         }   catch(IOException e){
             e.printStackTrace();
         }
-
     }
 
+    public Integer getEs() {
+        return es;
+    }
 }
