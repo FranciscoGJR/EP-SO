@@ -81,6 +81,8 @@ public class Escalonador{
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 listaDeProcessoProntos.removerPrimeiroElemento();
 
+                contadorQuantum++;
+                log.interrompendo(blocoTemporario.getNomeDoPrograma(), contadorQuantum);
                 log.terminandoProcesso(blocoTemporario.getNomeDoPrograma(), blocoTemporario.getX(), blocoTemporario.getY());             
             }
             else{
