@@ -62,7 +62,7 @@ public class Escalonador{
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
                     listaDeProcessosBloqueados.adicionarNoFinal(elementoTemporario);
                 
-                
+                    contadorQuantum++;
                     blocoTemporario.incrementarPC();
                     logInstrucoesES ++;
                     ultimaInstrucaoES = instrucaoAtual;
