@@ -15,13 +15,15 @@ public class Escalonador{
     public TabelaDeProcessos tabelaDeProcessos;
     public ListaDeProcessosProntos listaDeProcessoProntos;
     public ListaDeProcessosBloqueados listaDeProcessosBloqueados;
+    public Log log;
 
     Escalonador(){
+        this.log = new Log();
         quantum = this.definirQuantum();
         listaDeProcessoProntos = new ListaDeProcessosProntos();
         listaDeProcessosBloqueados = new ListaDeProcessosBloqueados();
         tabelaDeProcessos = criarTabelaDeProcessos();
-        listaDeProcessoProntos.carregarProcessos(tabelaDeProcessos.getTabela());
+        listaDeProcessoProntos.carregarProcessos(tabelaDeProcessos.getTabela(), log);
     }
 
 
@@ -42,8 +44,8 @@ public class Escalonador{
             
             listaDeProcessosBloqueados.decrementarTempoDeEspera();
             
-
             BlocoDeControleDeProcessos blocoTemporario = listaDeProcessoProntos.getPrimeiroProcesso();
+            log.executando(blocoTemporario.getNomeDoPrograma());
             System.out.println("\n# " + blocoTemporario.getNomeDoPrograma());
 
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
@@ -64,6 +66,7 @@ public class Escalonador{
                     blocoTemporario.incrementarPC();
                     logInstrucoesES ++;
                     ultimaInstrucaoES = instrucaoAtual;
+                    log.entradaSaida(blocoTemporario.getNomeDoPrograma());
                     break;
                 }
                 
@@ -78,10 +81,10 @@ public class Escalonador{
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 listaDeProcessoProntos.removerPrimeiroElemento();
 
-                
-                //manda pro log
-                //remove das lista prontos
-                //contadorTrocas ++ 
+                log.terminandoProcesso(blocoTemporario.getNomeDoPrograma(), blocoTemporario.getX(), blocoTemporario.getY());             
+            }
+            else{
+                log.interrompendo(blocoTemporario.getNomeDoPrograma(), contadorQuantum);
             }
 
             if (!ultimaInstrucaoES.equals("E/S") && !instrucaoAtual.equals("SAIDA")){
@@ -91,6 +94,8 @@ public class Escalonador{
             } 
 
         }
+
+        log.terminandoEscalonador(quantum);
 
         System.out.print("\nTabela de Processos: " + tabelaDeProcessos.toString() + "\n");
         System.out.print("Lista de Processos Prontos: " + listaDeProcessoProntos.toString() + "\n");
