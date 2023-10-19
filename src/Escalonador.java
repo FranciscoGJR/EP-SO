@@ -49,14 +49,16 @@ public class Escalonador{
             System.out.println("\n# " + blocoTemporario.getNomeDoPrograma());
 
             String instrucaoAtual = blocoTemporario.getInstrucaoAtual();
-            if(instrucaoAtual.contains("X") || instrucaoAtual.contains("Y"))
-                this.atualizarVariaveis(instrucaoAtual, blocoTemporario);
-            
+
             String ultimaInstrucaoES = "";
 
             int contadorQuantum = 0;
             while(contadorQuantum < quantum && !instrucaoAtual.equals("SAIDA")){
                 System.out.println(instrucaoAtual);
+
+                if(instrucaoAtual.contains("=")){
+                    this.atualizarVariaveis(instrucaoAtual, blocoTemporario);
+                }
 
                 if (instrucaoAtual.equals("E/S") ) {
                     ElementoDaLista elementoTemporario = listaDeProcessoProntos.removerPrimeiroElemento();
@@ -81,6 +83,9 @@ public class Escalonador{
                 tabelaDeProcessos.eliminarDaTabela(blocoTemporario);
                 listaDeProcessoProntos.removerPrimeiroElemento();
 
+                System.out.println("" + blocoTemporario.getNomeDoPrograma() + " X=" + blocoTemporario.getX());
+                System.out.println("" + blocoTemporario.getNomeDoPrograma() + " Y=" + blocoTemporario.getY());
+
                 log.terminandoProcesso(blocoTemporario.getNomeDoPrograma(), blocoTemporario.getX(), blocoTemporario.getY());             
             }
             else{
@@ -96,18 +101,12 @@ public class Escalonador{
         }
 
         log.terminandoEscalonador(quantum);
-
-        System.out.print("\nTabela de Processos: " + tabelaDeProcessos.toString() + "\n");
-        System.out.print("Lista de Processos Prontos: " + listaDeProcessoProntos.toString() + "\n");
-        System.out.print("Lista de Processos Bloqueados: " + listaDeProcessosBloqueados.toString() + "\n");
-        System.out.println("FIM");
-
     }
 
 
     public void atualizarVariaveis(String instrução, BlocoDeControleDeProcessos bcp){
-        String terceiraChar = String.valueOf(instrução.charAt(2));
-        Integer inteiro = Integer.parseInt(terceiraChar);
+        String valorEmString = instrução.substring(2);
+        Integer inteiro = Integer.parseInt(valorEmString);
 
         if(instrução.contains("X")){
           bcp.setX(inteiro);
