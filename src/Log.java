@@ -2,13 +2,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Log {
 
-    private Integer trocas;
-    private Integer instrucoes;
-    private Integer es;
+    private double trocas;
+    private double instrucoes;
+    private double es;
     private Path arquivo;
     Log(){
         es = 0;
@@ -92,13 +93,17 @@ public class Log {
     }
 
     public void terminandoEscalonador(Integer quantum){
-        Integer mediaInstrucoes = instrucoes/trocas;
-        Integer mediaTrocas = trocas/quantum;
+        double mediaInstrucoes = instrucoes/trocas;
+        double mediaTrocas = trocas/quantum;
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        String mediaTrocasFormatada = df.format(mediaTrocas);
+        String mediaInstrucoesFormatada = df.format(mediaInstrucoes);
 
         try{
             List<String> linhas = Files.readAllLines(arquivo);
-            linhas.add("MEDIA DE TROCAS: " + mediaTrocas);
-            linhas.add("MEDIA DE INSTRUCOES: " + mediaInstrucoes);
+            linhas.add("MEDIA DE TROCAS: " + mediaTrocasFormatada);
+            linhas.add("MEDIA DE INSTRUCOES: " + mediaInstrucoesFormatada);
             linhas.add("Quantum: " + quantum);
             Files.write(arquivo, linhas);
         }   catch(IOException e){
@@ -106,7 +111,7 @@ public class Log {
         }
     }
 
-    public Integer getEs() {
+    public double getEs() {
         return es;
     }
 }
